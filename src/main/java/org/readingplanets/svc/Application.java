@@ -1,11 +1,11 @@
-package org.readingplanets.readsvc2;
+package org.readingplanets.svc;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-@MapperScan("org.readingplanets.readsvc2.mapper")
+@MapperScan("org.readingplanets.svc.mapper")
 public class Application {
 
 	public static void main(String[] args) {
