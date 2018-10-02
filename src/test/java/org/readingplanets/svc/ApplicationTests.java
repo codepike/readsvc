@@ -1,4 +1,4 @@
-package org.readingplanets.readsvc2;
+package org.readingplanets.svc;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

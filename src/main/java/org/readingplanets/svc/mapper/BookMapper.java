@@ -1,9 +1,9 @@
-package org.readingplanets.readsvc2.mapper;
+package org.readingplanets.svc.mapper;
 
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
-import org.readingplanets.readsvc2.model.Book;
+import org.readingplanets.svc.model.Book;
 
 import java.util.List;
 

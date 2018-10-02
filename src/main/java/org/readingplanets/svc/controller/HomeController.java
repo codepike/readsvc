@@ -1,7 +1,7 @@
-package org.readingplanets.readsvc2;
+package org.readingplanets.svc.controller;
 
-import org.readingplanets.readsvc2.mapper.BookMapper;
-import org.readingplanets.readsvc2.model.Book;
+import org.readingplanets.svc.mapper.BookMapper;
+import org.readingplanets.svc.model.Book;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,8 +26,6 @@ public class HomeController {
     @ResponseBody
     public List<Book> book() {
         List<Book> books = bookMapper.getAll();
-
-        System.out.println("num: " + books.size());
         return books;
     }
 }

@@ -1,4 +1,4 @@
-package org.readingplanets.readsvc2.model;
+package org.readingplanets.svc.model;
 
 public class Book {
 
