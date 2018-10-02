@@ -20,7 +20,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/auth")
-@CrossOrigin(origins = "http://www.readingplanets.org", maxAge = 3600)
+@CrossOrigin(origins = {"http://www.readingplanets.org","http://localhost:3000"}, maxAge = 3600)
 public class AuthController {
 
     @Autowired
@@ -68,7 +68,6 @@ public class AuthController {
     @RequestMapping(value = "/login", method = RequestMethod.POST, produces = "application/json")
     @ResponseBody
     @ApiOperation(value = "Login")
-    @CrossOrigin(origins = "http://www.readingplanets.org", maxAge = 3600)
     public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest){
         String usernameOrEmail = loginRequest.getUsernameOrEmail();
         Authentication authentication = authenticationManager.authenticate(
