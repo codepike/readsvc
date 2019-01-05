@@ -16,7 +16,7 @@ public class BookControllerTest {
     private BookController bookController = new BookController(bookMapper);
     @Test
     public void home() throws Exception{
-        Book book1 = new Book(1, "title", "author", "isbn", 2001, "");
+        Book book1 = new Book(1, "title", "series","author", "isbn", 2001, "");
         List<Book> books = Arrays.asList(book1);
         when(bookMapper.getAll()).thenReturn(books);
 

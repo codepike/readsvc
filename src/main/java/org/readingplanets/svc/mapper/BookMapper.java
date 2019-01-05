@@ -20,6 +20,7 @@ public interface BookMapper {
     @Results(value = {
             @Result(property = "id", column = "ID", jdbcType=JdbcType.INTEGER),
             @Result(property = "title", column = "TITLE", jdbcType=JdbcType.VARCHAR),
+            @Result(property = "series", column = "SERIES", jdbcType=JdbcType.VARCHAR),
             @Result(property = "author", column = "AUTHOR", jdbcType=JdbcType.VARCHAR),
             @Result(property = "isbn", column = "ISBN", jdbcType=JdbcType.VARCHAR),
             @Result(property = "year", column = "YEAR", jdbcType=JdbcType.INTEGER),
@@ -33,8 +34,8 @@ public interface BookMapper {
      *
      * @param book the book to persist
      */
-    @Insert("INSERT INTO book(title,author,isbn,year,cover)" +
-            "VALUES(#{title}, #{author}, #{isbn}, #{year}, #{cover})")
+    @Insert("INSERT INTO book(title, series, author,isbn,year,cover)" +
+            "VALUES(#{title}, #{series}, #{author}, #{isbn}, #{year}, #{cover})")
     void insert(Book book);
 
     /**
@@ -42,7 +43,7 @@ public interface BookMapper {
      *
      * @param book the book to update
      */
-    @Update("UPDATE book SET title = #{title}, author = #{author}, isbn = #{isbn}, year=#{year}, cover=#{cover} WHERE id = #{id}")
+    @Update("UPDATE book SET title = #{title}, series = #{series}, author = #{author}, isbn = #{isbn}, year=#{year}, cover=#{cover} WHERE id = #{id}")
     void update(Book book);
 
     /**
@@ -51,10 +52,11 @@ public interface BookMapper {
      * @param id the book ID to look up
      * @return a book of the book ID
      */
-    @Select("SELECT id, title, author, isbn, year, cover FROM book where id = #{id}")
+    @Select("SELECT id, title, series, author, isbn, year, cover FROM book where id = #{id}")
     @Results({
             @Result(property = "id", column = "ID", jdbcType=JdbcType.INTEGER),
             @Result(property = "title", column = "TITLE", jdbcType=JdbcType.VARCHAR),
+            @Result(property = "series", column = "SERIES", jdbcType=JdbcType.VARCHAR),
             @Result(property = "author", column = "AUTHOR", jdbcType=JdbcType.VARCHAR),
             @Result(property = "isbn", column = "ISBN", jdbcType=JdbcType.VARCHAR),
             @Result(property = "year", column = "YEAR", jdbcType=JdbcType.INTEGER),
