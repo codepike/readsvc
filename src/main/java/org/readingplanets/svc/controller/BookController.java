@@ -6,6 +6,7 @@ import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.amazonaws.services.s3.model.PutObjectResult;
+import net.coobird.thumbnailator.Thumbnails;
 import org.readingplanets.svc.mapper.BookMapper;
 import org.readingplanets.svc.model.ApiResponse;
 import org.readingplanets.svc.model.Book;
@@ -15,6 +16,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.*;
 import java.util.List;
 
@@ -108,16 +111,29 @@ public class BookController {
 
         String suffix = originalFileName.substring(i);
 
-
         InputStream inputStream = file.getInputStream();
         logger.info("md5: {}", org.apache.commons.codec.digest.DigestUtils.md5Hex(file.getInputStream()));
 
-        String md5 = org.apache.commons.codec.digest.DigestUtils.md5Hex(file.getInputStream());
+        BufferedImage bufferedImage = ImageIO.read(file.getInputStream());
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        Thumbnails.of(bufferedImage).size(500,500).outputFormat("JPEG").toOutputStream(baos);
+
+        baos.flush();
+        byte[] imageInByte;
+        imageInByte = baos.toByteArray();
+        baos.close();
+
+        logger.info("w x h: {} x {}", bufferedImage.getWidth(), bufferedImage.getHeight());
+
+
+        InputStream in = new ByteArrayInputStream(imageInByte);
+
+        String md5 = org.apache.commons.codec.digest.DigestUtils.md5Hex(in);
 
         ObjectMetadata metadata = new ObjectMetadata();
-        metadata.setContentLength(file.getSize());
+        metadata.setContentLength(imageInByte.length);
 
-
+        inputStream = new ByteArrayInputStream(imageInByte);
         PutObjectRequest putObjectRequest = new PutObjectRequest("readapp-images", md5+ suffix, inputStream, metadata);
         putObjectRequest.setCannedAcl(CannedAccessControlList.PublicRead);
         PutObjectResult result = s3Client.putObject(putObjectRequest);
